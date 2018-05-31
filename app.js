@@ -72,7 +72,6 @@ app.get("/blogs/:id", function(req, res) {
 
 //EDIT ROUTE
 app.get("/blogs/:id/edit", function(req, res) {
-  req.body.blog.body = req.sanitize(req.body.blog.body); //sanitizes html input from user in blog body
   Blog.findById(req.params.id, function(err, foundBlog){
     if(err){
       res.redirect("/blogs");
@@ -84,6 +83,7 @@ app.get("/blogs/:id/edit", function(req, res) {
 
 //UPDATE ROUTE
 app.put("/blogs/:id", function(req, res){
+  req.body.blog.body = req.sanitize(req.body.blog.body); //sanitizes html input from user in blog body
   Blog.findByIdAndUpdate(req.params.id, req.body.blog, function(err, updatedBlog){ // 3 arguments (id, newData, Callback )
     if(err){
       res.redirect("/blogs");
